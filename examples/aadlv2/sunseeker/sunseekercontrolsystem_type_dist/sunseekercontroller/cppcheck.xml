@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results version="2">
+    <cppcheck version="1.77"/>
+    <errors>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/drivers/configuration/asn1crt.h" line="6"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_types.h" line="17"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_types.h" line="21"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdlib.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdlib.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_task.h" line="19"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_task.h" line="20"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;semaphore.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;semaphore.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_task.h" line="67"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_time.h" line="145"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_task.h" line="69"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;sched.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;sched.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_task.h" line="70"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_debug.h" line="29"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;sys/time.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;sys/time.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/drivers/po_hi_driver_sockets.h" line="40"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;signal.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;signal.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/drivers/po_hi_driver_sockets.c" line="38"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/drivers/po_hi_driver_sockets.c" line="39"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;unistd.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;unistd.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/drivers/po_hi_driver_sockets.c" line="40"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;netdb.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;netdb.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/drivers/po_hi_driver_sockets.c" line="42"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;sys/types.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;sys/types.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/drivers/po_hi_driver_sockets.c" line="43"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;sys/select.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;sys/select.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/drivers/po_hi_driver_sockets.c" line="44"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;sys/socket.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;sys/socket.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/drivers/po_hi_driver_sockets.c" line="45"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;netinet/in.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;netinet/in.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/drivers/po_hi_driver_sockets.c" line="46"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;netinet/tcp.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;netinet/tcp.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/drivers/po_hi_driver_sockets.c" line="47"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;arpa/inet.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;arpa/inet.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/drivers/po_hi_driver_sockets.c" line="48"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;sys/time.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;sys/time.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/drivers/po_hi_driver_sockets.c" line="49"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;iostream&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;iostream&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/cheddar_scheduling/cheddar_schedule.cc" line="3"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;memory&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;memory&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/cheddar_scheduling/cheddar_schedule.cc" line="4"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;algorithm&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;algorithm&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/cheddar_scheduling/cheddar_schedule.cc" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;iosfwd&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;iosfwd&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/cheddar_scheduling/cheddar_schedule.cc" line="6"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;iterator&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;iterator&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/cheddar_scheduling/cheddar_schedule.cc" line="7"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;array&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;array&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/cheddar_scheduling/cheddar_schedule.cc" line="8"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;boost/graph/adjacency_list.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;boost/graph/adjacency_list.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/cheddar_scheduling/cheddar_schedule.cc" line="14"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;deque&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;deque&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/cheddar_scheduling/cheddar_schedule.cc" line="16"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;iterator&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;iterator&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/cheddar_scheduling/cheddar_schedule.cc" line="17"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;boost/graph/graphviz.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;boost/graph/graphviz.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/cheddar_scheduling/cheddar_schedule.cc" line="18"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;boost/graph/adj_list_serialize.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;boost/graph/adj_list_serialize.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/cheddar_scheduling/cheddar_schedule.cc" line="19"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;boost/graph/topological_sort.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;boost/graph/topological_sort.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/cheddar_scheduling/cheddar_schedule.cc" line="20"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;iostream&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;iostream&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/remote_configuration.cc" line="1"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;meta.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;meta.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/remote_configuration.cc" line="4"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;state.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;state.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/remote_configuration.cc" line="6"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;trace.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;trace.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/remote_configuration.cc" line="7"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;remote_configuration.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;remote_configuration.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/remote_configuration.cc" line="8"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;iterator&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;iterator&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/remote_configuration.cc" line="9"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;boost/multi_index_container.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;boost/multi_index_container.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/remote_configuration.cc" line="13"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;boost/multi_index/hashed_index.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;boost/multi_index/hashed_index.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/remote_configuration.cc" line="14"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;boost/multi_index/identity.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;boost/multi_index/identity.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/remote_configuration.cc" line="15"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;boost/multi_index/sequenced_index.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;boost/multi_index/sequenced_index.hpp&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/remote_configuration.cc" line="16"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;assert.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;assert.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/trace_manager.cc" line="2"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/trace_manager.cc" line="3"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdlib.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdlib.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/trace_manager.cc" line="4"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/trace_manager.cc" line="6"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/trace_manager.cc" line="10"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;trace_manager.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;trace_manager.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/trace_manager.cc" line="13"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;remote_configuration.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;remote_configuration.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/trace_manager.cc" line="14"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;thread&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;thread&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/trace_manager.cc" line="17"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;mutex&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;mutex&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/trace_manager.cc" line="18"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;state.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;state.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/trace_manager.cc" line="19"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;hyperperiod_config.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;hyperperiod_config.hh&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/monitoring/trace_manager.cc" line="21"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_gqueue.c" line="26"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_gqueue.c" line="29"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_lua.h" line="17"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdlib.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdlib.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_lua.h" line="18"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;unistd.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;unistd.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_lua.h" line="19"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_lua.h" line="23"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_protected.h" line="14"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdlib.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdlib.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_protected.h" line="22"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_protected.h" line="23"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;time.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;time.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_protected.h" line="24"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_protected.h" line="25"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_main.c" line="31"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;xlocale.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;xlocale.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_messages.c" line="19"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_messages.c" line="21"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stddef.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stddef.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_monitor.c" line="21"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_protected.c" line="27"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_simulink.h" line="14"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_simulink.h" line="16"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;rtwtypes.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;rtwtypes.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_simulink.h" line="18"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;rtmodel.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;rtmodel.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_simulink.h" line="19"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;rt_sim.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;rt_sim.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_simulink.h" line="20"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;rt_logging.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;rt_logging.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_simulink.h" line="21"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;rt_nonfinite.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;rt_nonfinite.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_simulink.h" line="25"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;ext_work.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;ext_work.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_simulink.c" line="14"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;xlocale.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;xlocale.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_storage.c" line="13"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_storage.c" line="15"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;sys/types.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;sys/types.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_storage.h" line="53"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;sys/stat.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;sys/stat.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_storage.h" line="54"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;dirent.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;dirent.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_storage.h" line="55"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;fcntl.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;fcntl.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_storage.h" line="56"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;unistd.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;unistd.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/include/po_hi_storage.h" line="57"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;xlocale.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;xlocale.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_task.c" line="38"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_task.c" line="41"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;sched.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;sched.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_task.c" line="42"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_task.c" line="50"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;time.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;time.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_time.c" line="11"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;errno.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_time.c" line="12"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_time.c" line="20"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stddef.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stddef.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_transport.c" line="11"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_types.c" line="20"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdlib.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdlib.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/po_hi_utils.c" line="20"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;pthread.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/simulator/simulator_main.c" line="30"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;signal.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;signal.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/simulator/um_threads.c" line="1"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdlib.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdlib.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/simulator/um_threads.c" line="2"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/simulator/um_threads.c" line="3"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;sys/types.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;sys/types.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/simulator/um_threads.c" line="4"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;sys/time.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;sys/time.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/simulator/um_threads.c" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;ucontext.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;ucontext.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/simulator/um_threads.c" line="7"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdio.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/hari/polyorb-hi-c/src/simulator/um_threads.c" line="8"/>
+        </error>
+        <error id="missingInclude" severity="information" msg="Include file: &quot;um_threads.h&quot; not found." verbose="Include file: &quot;um_threads.h&quot; not found.">
+            <location file="/home/hari/polyorb-hi-c/src/simulator/um_threads.c" line="15"/>
+        </error>
+    </errors>
+</results>
