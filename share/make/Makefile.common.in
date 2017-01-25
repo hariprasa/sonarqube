@@ -396,3 +396,6 @@ python_wrapper:
 
 	$(CC) -fPIC -c po_hi_c_python_wrap.c $(INCLUDE) $(CFLAGS) `python-config --includes`
 	ld -dylib po_hi_c_python_wrap.o $(EXTERNAL_OBJECTS) $(PO_HI_OBJS) $(PO_HI_CPPOBJS) $(GENERATED_OBJS) $(USER_OBJS) $(LDFLAGS) `python-config --libs` -o _po_hi_c_python.so
+
+cppcheck:
+	cppcheck -v --enable=all --xml-version=2 --std=c99 --check-config $(INCLUDE) -I$(RUNTIME_PATH)/include    $(CFLAGS) $(RUNTIME_PATH)/src .  2> cppcheck.xml
