@@ -12,4 +12,8 @@ doc/stamp-vti
 doc/version.texi
 support/mdate-sh
 support/texinfo.tex
-
+*.o
+*.gcda
+*.gcno
+*.xml
+*.log

@@ -113,7 +113,8 @@ int __po_hi_mutex_init (__po_hi_mutex_t* mutex, const __po_hi_mutex_protocol_t p
 
    switch (protocol)
    {
-      case __PO_HI_MUTEX_IPCP:
+       case __PO_HI_MUTEX_PCP:
+       case __PO_HI_MUTEX_IPCP:
          {
             if (pthread_mutexattr_setprotocol (&mutex->posix_mutexattr, PTHREAD_PRIO_PROTECT) != 0)
             {
@@ -144,10 +145,12 @@ int __po_hi_mutex_init (__po_hi_mutex_t* mutex, const __po_hi_mutex_protocol_t p
             }
             break;
          }
-     default:
-	{
-	    break;
-	}
+     //case __PO_HI_PROTECTED_REGULAR:
+     case __PO_HI_MUTEX_REGULAR:
+     //case __PO_HI_PROTECTED_PCP:
+     //case __PO_HI_PROTECTED_INVALID:
+	break;
+
    }
 
     if (pthread_mutex_init (&mutex->posix_mutex, &mutex->posix_mutexattr) != 0)

@@ -3,10 +3,10 @@
 #include<stdio.h>
 #include<sys/types.h>
 #include<sys/time.h>
+#include<assert.h>
 
 #include<ucontext.h>
 #include<stdio.h>
-#include<assert.h>
 
 #include <po_hi_debug.h>
 #include <activity.h>
@@ -111,6 +111,7 @@ void scheduler(void)
 {
   //um_thread_id previous = sched_current_context_id;
   //assert(previous);
+
   threads[sched_current_context_id].state = READY;
   sched_current_context_id = the_scheduler ();
 

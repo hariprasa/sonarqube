@@ -1,0 +1,686 @@
+diff --git a/src/drivers/po_hi_driver_sockets.c b/src/drivers/po_hi_driver_sockets.c
+index 8f557c0..f74d354 100644
+--- a/src/drivers/po_hi_driver_sockets.c
++++ b/src/drivers/po_hi_driver_sockets.c
+@@ -38,6 +38,7 @@
+ #include <signal.h>
+ #include <string.h>
+ #include <unistd.h>
++#include <assert.h>
+ #ifndef _WIN32
+ #include <netdb.h>
+ #include <sys/types.h>
+@@ -88,7 +89,6 @@ int      __po_hi_c_sockets_array_init_done = 0;
+ int __po_hi_driver_sockets_send (__po_hi_task_id task_id,
+                                  __po_hi_port_t port)
+ {
+-   int                        len;
+    int                        size_to_write;
+ #ifndef _WIN32
+    int                        optval = 0;
+@@ -113,8 +113,7 @@ int __po_hi_driver_sockets_send (__po_hi_task_id task_id,
+    remote_device           = __po_hi_get_device_from_port (destination_port);
+    protocol_id             = __po_hi_transport_get_protocol (port, destination_port);
+    protocol_conf           = __po_hi_transport_get_protocol_configuration (protocol_id);
+-
+-
++   
+    __DEBUGMSG ("[DRIVER SOCKETS] Try to write from task=%d, port=%d, local_device=%d, remote device=%d, socket=%d\n", task_id, port, local_device, remote_device, __po_hi_c_sockets_write_sockets[remote_device]);
+    if (request->port == -1)
+    {
+@@ -131,7 +130,7 @@ int __po_hi_driver_sockets_send (__po_hi_task_id task_id,
+ 
+    if (device_status.status != po_hi_monitor_status_ok)
+    {
+-      __DEBUGMSG ("[DRIVER SOCKETS] Device has a problem and is not able to process the request, aborting (device-id=%d, status= %d)\n", local_device, device_status);
++      __DEBUGMSG ("[DRIVER SOCKETS] Device has a problem and is not able to process the request, aborting (device-id=%d, status= %d)\n", local_device, device_status.status);
+       return __PO_HI_ERROR_TRANSPORT_SEND;
+    }
+ #endif
+@@ -182,14 +181,16 @@ int __po_hi_driver_sockets_send (__po_hi_task_id task_id,
+    }
+ #endif
+ 
++
+    switch (protocol_id)
+    {
+ #ifdef __PO_HI_USE_PROTOCOL_MYPROTOCOL_I
+       case virtual_bus_myprotocol_i:
+       {
++	 int  len;
+          size_to_write = sizeof (int);
+-         int datawritten;
+-         protocol_conf->marshaller(request, &datawritten, &size_to_write);
++	 int datawritten;
++   	 protocol_conf->marshaller(request, &datawritten, &size_to_write);
+ #ifdef _WIN32
+          len = send (__po_hi_c_sockets_write_sockets[remote_device], &datawritten, size_to_write, 0);
+ #else
+@@ -206,9 +207,11 @@ int __po_hi_driver_sockets_send (__po_hi_task_id task_id,
+          break;
+       }
+ #endif
++      case invalid_protocol:
+       default:
+       {
+-         request->port = destination_port;
++         
++	 request->port = destination_port;
+          __po_hi_msg_reallocate (&__po_hi_c_sockets_send_msg);
+          __po_hi_marshall_request (request, &__po_hi_c_sockets_send_msg);
+ 
+@@ -217,7 +220,7 @@ int __po_hi_driver_sockets_send (__po_hi_task_id task_id,
+ #endif
+          if (__po_hi_c_sockets_write_sockets[remote_device] != -1)
+          {
+-
++	    int  len;
+ #ifdef _WIN32
+             len = send (__po_hi_c_sockets_write_sockets[remote_device], (char*) &(__po_hi_c_sockets_send_msg.content), size_to_write, 0);
+ #else
+@@ -246,8 +249,9 @@ int __po_hi_driver_sockets_send (__po_hi_task_id task_id,
+    return __PO_HI_SUCCESS;
+ }
+ 
+-
+-
++/*pragma is for unused parameter "dev_id_addr"*/
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wunused-parameter"
+ void* __po_hi_sockets_poller (__po_hi_device_id* dev_id_addr)
+ {
+ #ifdef _WIN32
+@@ -264,10 +268,9 @@ void* __po_hi_sockets_poller (__po_hi_device_id* dev_id_addr)
+    struct sockaddr_in         sa;
+    __po_hi_device_id          dev;
+    __po_hi_node_t             dev_init;
+-   int                        established = 0;
+    int                        ret;
+    __po_hi_device_id          dev_id;
+-   __po_hi_uint32_t           n_connected;
++   __po_hi_int32_t            n_connected;
+ 
+    socklen = sizeof (struct sockaddr);
+ 
+@@ -278,7 +281,9 @@ void* __po_hi_sockets_poller (__po_hi_device_id* dev_id_addr)
+    __DEBUGMSG ("Poller launched, device-id=%d\n", dev_id);
+ 
+    n_connected = 0;
++
+    for (dev = 0; dev < __PO_HI_NB_DEVICES ; dev++)
++
+    {
+       if (__po_hi_transport_share_bus (dev, dev_id) == 1)
+       {
+@@ -286,7 +291,7 @@ void* __po_hi_sockets_poller (__po_hi_device_id* dev_id_addr)
+       }
+    }
+ 
+-
++   assert (n_connected >= 0);
+    __DEBUGMSG ("Number of devices that share the bus=%d\n", n_connected);
+ 
+ 
+@@ -295,7 +300,7 @@ void* __po_hi_sockets_poller (__po_hi_device_id* dev_id_addr)
+     */
+    for (dev = 0; dev < n_connected - 1; dev++)
+    {
+-         established = 0;
++         int established = 0;
+ 
+          while (established == 0)
+          {
+@@ -320,7 +325,7 @@ void* __po_hi_sockets_poller (__po_hi_device_id* dev_id_addr)
+             if (ret != sizeof (__po_hi_device_id))
+             {
+                established = 0;
+-               __DEBUGMSG ("[DRIVER SOCKETS] Cannot read device-id for device %d, socket=%d, ret=%d, read size=%d, expected size=%d\n", dev, sock, ret, ret, sizeof (__po_hi_device_id));
++               __DEBUGMSG ("[DRIVER SOCKETS] Cannot read device-id for device %d, socket=%d, ret=%d, read size=%d, expected size=%lu\n", dev, sock, ret, ret, sizeof (__po_hi_device_id));
+             }
+             else
+             {
+@@ -429,6 +434,7 @@ void* __po_hi_sockets_poller (__po_hi_device_id* dev_id_addr)
+    }
+    return NULL;
+ }
++#pragma GCC diagnostic pop
+ 
+ 
+ void __po_hi_driver_sockets_init (__po_hi_device_id dev_id)
+@@ -551,8 +557,8 @@ void __po_hi_driver_sockets_init (__po_hi_device_id dev_id)
+ 
+       __DEBUGMSG ("[DRIVER SOCKETS] Will initialize connection with device %d\n", dev);
+ 
+-      ip_port = 0;
+-
++      //ip_port = 0;
++      //assert(ip_port);
+       ipconf = (__po_hi_c_ip_conf_t*) __po_hi_get_device_configuration (dev);
+       ip_port = (unsigned short)ipconf->port;
+ 
+@@ -581,8 +587,8 @@ void __po_hi_driver_sockets_init (__po_hi_device_id dev_id)
+ 
+          __DEBUGMSG ("[DRIVER SOCKETS] Socket for dev %d created, value=%d\n", dev, __po_hi_c_sockets_write_sockets[dev]);
+ 
+-         hostinfo = NULL;
+-
++         //hostinfo = NULL;
++	 //assert(hostinfo);
+          hostinfo = gethostbyname ((char*)ipconf->address);
+ 
+          if (hostinfo == NULL )
+@@ -644,7 +650,7 @@ void __po_hi_driver_sockets_init (__po_hi_device_id dev_id)
+ #endif
+             if (ret != sizeof (__po_hi_device_id))
+             {
+-               __DEBUGMSG ("[DRIVER SOCKETS] Device %d cannot send his id, expected size=%d, return value=%d\n", dev_id, sizeof (__po_hi_device_id), ret);
++               __DEBUGMSG ("[DRIVER SOCKETS] Device %d cannot send his id, expected size=%lu, return value=%d\n", dev_id, sizeof (__po_hi_device_id), ret);
+             }
+             else
+             {
+diff --git a/src/monitoring/cheddar_scheduling/cheddar_schedule.cc b/src/monitoring/cheddar_scheduling/cheddar_schedule.cc
+index b3c1661..b5f102c 100644
+--- a/src/monitoring/cheddar_scheduling/cheddar_schedule.cc
++++ b/src/monitoring/cheddar_scheduling/cheddar_schedule.cc
+@@ -23,7 +23,10 @@
+ 
+ class state
+ {
+-
++state()
++{
++;
++}
+ public:
+ 
+ //Graph elements definitions
+diff --git a/src/po_hi_gqueue.c b/src/po_hi_gqueue.c
+index 8fd90f0..a8bb8db 100644
+--- a/src/po_hi_gqueue.c
++++ b/src/po_hi_gqueue.c
+@@ -24,6 +24,8 @@
+ /* Headers from the generated code */
+ 
+ #include <string.h>
++#include <assert.h>
++#include <stdlib.h>
+ 
+ #if defined (POSIX) || defined (RTEMS_POSIX) || defined (XENO_POSIX)
+ #include <pthread.h>
+@@ -98,7 +100,6 @@ void __po_hi_gqueue_init (__po_hi_task_id       id,
+ {
+    __po_hi_uint8_t      tmp;
+    __po_hi_uint16_t     off;
+-   __po_hi_request_t*   request;
+    int err;
+ 
+ #if defined (RTEMS_PURE)
+@@ -133,20 +134,26 @@ void __po_hi_gqueue_init (__po_hi_task_id       id,
+ #if defined (RTEMS_POSIX) || defined (POSIX) || defined (XENO_POSIX)
+    err = pthread_mutexattr_init (&__po_hi_gqueues_mutexes_attr[id]);
+    __DEBUGMSG("MUTEX_INIT %d %d\n", id, err);
++   assert(err == 0);
+    err = pthread_condattr_init (&__po_hi_gqueues_conds_attr[id]);
+    __DEBUGMSG("MUTEX_INIT %d %d\n", id, err);
++   assert(err == 0);
+ #if defined (POSIX) || defined (XENO_POSIX)
+    // XXX disabled for OS X
+ 
+ #ifndef __MACH__ // OS X bugs on this attribute
+    err = pthread_mutexattr_setpshared(&__po_hi_gqueues_mutexes_attr[id],PTHREAD_PROCESS_SHARED);
++   assert(err == 0);
+ #endif
+    __DEBUGMSG("MUTEX_INIT %d\n", err);
+ #endif
+    err = pthread_mutex_init (&__po_hi_gqueues_mutexes[id], &__po_hi_gqueues_mutexes_attr[id]);
+    __DEBUGMSG("MUTEX_INIT %d %d\n", id, err);
++   assert(err == 0);
+    err = pthread_cond_init (&__po_hi_gqueues_conds[id], &__po_hi_gqueues_conds_attr[id]);
+    __DEBUGMSG("COND_INIT %d %d\n", id, err);
++   assert(err == 0);
++   
+ #endif
+ 
+ #ifdef RTEMS_PURE
+@@ -194,7 +201,7 @@ void __po_hi_gqueue_init (__po_hi_task_id       id,
+ #endif
+ 
+    off = 0;
+-
++   
+    for (tmp=0;tmp<nb_ports;tmp++)
+    {
+       __po_hi_gqueues_used_size[id][tmp] = 0;
+@@ -208,9 +215,9 @@ void __po_hi_gqueue_init (__po_hi_task_id       id,
+          __po_hi_gqueues_woffsets[id][tmp] = 0;
+          __po_hi_gqueues_port_is_empty[id][tmp] = 1;
+       }
+-
++      
+       /* Set invalid all recent values */
+-      request = (__po_hi_request_t*)&__po_hi_gqueues_most_recent_values[id][tmp];
++      __po_hi_request_t* request = (__po_hi_request_t*)&__po_hi_gqueues_most_recent_values[id][tmp];
+       request->port = __PO_HI_GQUEUE_INVALID_PORT;
+    }
+ 
+@@ -245,7 +252,7 @@ __po_hi_uint8_t __po_hi_gqueue_store_in (__po_hi_task_id id,
+ {
+    __po_hi_request_t* ptr;
+    __po_hi_request_t* tmp;
+-   __po_hi_uint32_t   size;
++   
+ #ifdef RTEMS_PURE
+    rtems_status_code ret;
+ #endif
+@@ -303,7 +310,8 @@ __po_hi_uint8_t __po_hi_gqueue_store_in (__po_hi_task_id id,
+         __DEBUGMSG ("[GQUEUE] Semaphore released (id=%d)\n", id);
+         return __PO_HI_ERROR_QUEUE_FULL;
+       }
+-
++      
++      __po_hi_uint32_t   size;
+       tmp = (__po_hi_request_t*) &__po_hi_gqueues[id][port];
+       size = __po_hi_gqueues_woffsets[id][port] + __po_hi_gqueues_first[id][port];
+ 
+@@ -330,6 +338,7 @@ __po_hi_uint8_t __po_hi_gqueue_store_in (__po_hi_task_id id,
+ #if defined (POSIX) || defined (RTEMS_POSIX) || defined (XENO_POSIX)
+    pthread_mutex_unlock (&__po_hi_gqueues_mutexes[id]);
+    int err = pthread_cond_signal (&__po_hi_gqueues_conds[id]);
++   assert(err == 0);   
+    __DEBUGMSG("*** Releasing (%d) %d\n", id, err);
+ #elif defined (XENO_NATIVE)
+    rt_mutex_release (&__po_hi_gqueues_mutexes[id]);
+@@ -367,6 +376,7 @@ void __po_hi_gqueue_wait_for_incoming_event (__po_hi_task_id id,
+ 
+ #if defined (POSIX) || defined (RTEMS_POSIX) || defined (XENO_POSIX)
+   int error = pthread_mutex_lock (&__po_hi_gqueues_mutexes[id]);
++  assert(error ==0);
+   __DEBUGMSG("*** Locking (%d) %d\n", id, error);
+ #elif defined (XENO_NATIVE)
+   rt_mutex_acquire (&__po_hi_gqueues_mutexes[id], TM_INFINITE);
+@@ -388,6 +398,7 @@ void __po_hi_gqueue_wait_for_incoming_event (__po_hi_task_id id,
+       __DEBUGMSG("*** Waiting (%d)\n", id);
+       int error = pthread_cond_wait (&__po_hi_gqueues_conds[id],
+                                      &__po_hi_gqueues_mutexes[id]);
++      assert(error == 0);
+       __DEBUGMSG("*** Done Waiting (%d) %d\n", id, error);
+ #elif defined (XENO_NATIVE)
+       rt_cond_wait (&__po_hi_gqueues_conds[id], &__po_hi_gqueues_mutexes[id], TM_INFINITE);
+@@ -651,11 +662,14 @@ __po_hi_int8_t po_hi_gqueues_queue_is_empty( __po_hi_task_id id)
+    return __po_hi_gqueues_queue_is_empty[id];
+ }
+ 
+-__po_hi_request_t*
+- __po_hi_gqueues_get_request(__po_hi_task_id id, __po_hi_local_port_t port)
++__po_hi_request_t* 
++__po_hi_gqueues_get_request(__po_hi_task_id id, __po_hi_local_port_t port)
++
+  {
+- __po_hi_request_t* request;
+-__po_hi_request_t* ptr;
++  __po_hi_request_t* request ;
++  __po_hi_request_t* ptr ;
++  request = calloc(1,sizeof(__po_hi_request_t));
++  ptr = &__po_hi_gqueues_most_recent_values[id][port];
+    if (__po_hi_gqueues_used_size[id][port] == 0)
+    {
+       memcpy (request, ptr, sizeof (__po_hi_request_t));
+@@ -665,5 +679,5 @@ __po_hi_request_t* ptr;
+    {
+       ptr = ((__po_hi_request_t *) &__po_hi_gqueues[id][port]) +  __po_hi_gqueues_first[id][port] + __po_hi_gqueues_offsets[id][port];
+       memcpy (request, ptr, sizeof (__po_hi_request_t));
+-   }      return request;
++   }	return request;
+ }
+diff --git a/src/po_hi_monitor.c b/src/po_hi_monitor.c
+index 1f7dd0c..ed7dead 100644
+--- a/src/po_hi_monitor.c
++++ b/src/po_hi_monitor.c
+@@ -60,7 +60,7 @@ void __po_hi_monitor_init (void)
+ int __po_hi_monitor_get_status_port (const __po_hi_port_t port, __po_hi_monitor_status_t* status)
+ {
+    __po_hi_device_id associated_device;
+-   __PO_HI_DEBUG_DEBUG ("[MONITOR] call __po_hi_monitor_get_status_port with argument %d (port) and 0x%x (status pointer)\n", port, status);
++   __PO_HI_DEBUG_DEBUG ("[MONITOR] call __po_hi_monitor_get_status_port with argument %d (port) and 0x%p (status pointer)\n", port, status);
+ 
+    associated_device = __po_hi_get_device_from_port (port);
+    if (associated_device == invalid_device_id)
+@@ -79,7 +79,7 @@ int __po_hi_monitor_get_status_device (const __po_hi_device_id device,
+    __po_hi_bus_id*   buses;
+    uint32_t i;
+ 
+-   __PO_HI_DEBUG_DEBUG ("[MONITOR] call __po_hi_monitor_get_status_device with argument %d (device) and 0x%x (status pointer)\n", device, status);
++   __PO_HI_DEBUG_DEBUG ("[MONITOR] call __po_hi_monitor_get_status_device with argument %d (device) and 0x%p (status pointer)\n", device, status);
+ 
+    if ((device < 0) || (device >= __PO_HI_NB_DEVICES))
+    {
+@@ -125,7 +125,7 @@ int __po_hi_monitor_get_status_bus (const __po_hi_bus_id       bus,
+ {
+    int               n_failure;
+ 
+-   __PO_HI_DEBUG_DEBUG ("[MONITOR] call __po_hi_monitor_get_status_bus with argument %d (bus) and 0x%x (status pointer)\n", bus, status);
++   __PO_HI_DEBUG_DEBUG ("[MONITOR] call __po_hi_monitor_get_status_bus with argument %d (bus) and 0x%p (status pointer)\n", bus, status);
+ 
+    if ((bus < 0) || (bus >= __PO_HI_NB_BUSES))
+    {
+diff --git a/src/po_hi_protected.c b/src/po_hi_protected.c
+index 69b991c..4b29b12 100644
+--- a/src/po_hi_protected.c
++++ b/src/po_hi_protected.c
+@@ -113,7 +113,8 @@ int __po_hi_mutex_init (__po_hi_mutex_t* mutex, const __po_hi_mutex_protocol_t p
+ 
+    switch (protocol)
+    {
+-      case __PO_HI_MUTEX_IPCP:
++       case __PO_HI_MUTEX_PCP:
++       case __PO_HI_MUTEX_IPCP:
+          {
+             if (pthread_mutexattr_setprotocol (&mutex->posix_mutexattr, PTHREAD_PRIO_PROTECT) != 0)
+             {
+@@ -144,10 +145,12 @@ int __po_hi_mutex_init (__po_hi_mutex_t* mutex, const __po_hi_mutex_protocol_t p
+             }
+             break;
+          }
+-     default:
+-	{
+-	    break;
+-	}
++     //case __PO_HI_PROTECTED_REGULAR:
++     case __PO_HI_MUTEX_REGULAR:
++     //case __PO_HI_PROTECTED_PCP:
++     //case __PO_HI_PROTECTED_INVALID:
++	break;
++
+    }
+ 
+     if (pthread_mutex_init (&mutex->posix_mutex, &mutex->posix_mutexattr) != 0)
+diff --git a/src/po_hi_storage.c b/src/po_hi_storage.c
+index d881e8d..9ddece8 100644
+--- a/src/po_hi_storage.c
++++ b/src/po_hi_storage.c
+@@ -85,7 +85,7 @@ int __po_hi_storage_file_close (__po_hi_storage_file_t* file)
+ 
+    if ( close (file->fd))
+    {
+-      __DEBUGMSG ("[STORAGE] __po_hi_storage_file_close: cannot close file\n", file->filename);
++      __DEBUGMSG ("[STORAGE] __po_hi_storage_file_close: %s cannot close file\n", file->filename);
+       return __PO_HI_ERROR_UNKNOWN;
+    }
+ 
+@@ -131,7 +131,7 @@ int __po_hi_storage_file_create (__po_hi_storage_file_t* file)
+ 
+    if (fd == -1)
+    {
+-      __DEBUGMSG ("[STORAGE] Warning, cannot open file %s with create attributes\n");
++      __DEBUGMSG ("[STORAGE] Warning, cannot open file %s with create attributes\n", file->filename);
+       return __PO_HI_INVALID;
+    }
+ 
+@@ -320,21 +320,30 @@ int __po_hi_storage_file_append (const __po_hi_storage_file_t* file, char* buf,
+ #endif
+    return __PO_HI_NOTIMPLEMENTED;
+ }
+-
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wunused-parameter"
+ int __po_hi_storage_file_replace (const __po_hi_storage_file_t* oldfile, const __po_hi_storage_file_t* newfile)
+ {
+    return __PO_HI_NOTIMPLEMENTED;
+ }
++#pragma GCC diagnostic pop
+ 
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wunused-parameter"
+ int __po_hi_storage_file_lock (const __po_hi_storage_file_t* file)
+ {
++   
+    return __PO_HI_NOTIMPLEMENTED;
+ }
++#pragma GCC diagnostic pop
+ 
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wunused-parameter"
+ int __po_hi_storage_file_unlock (const __po_hi_storage_file_t* file)
+ {
+    return __PO_HI_NOTIMPLEMENTED;
+ }
++#pragma GCC diagnostic pop
+ 
+ /*
+  * Directory operations
+@@ -474,8 +483,7 @@ int __po_hi_storage_directory_list (__po_hi_storage_dir_t* dir)
+ #if defined (POSIX) || defined (RTEMS_POSIX) || defined (XENO_POSIX)
+    struct dirent* ent;
+    DIR*           sdir;
+-   int            n;
+-   int            len;
++
+ #endif
+ 
+    if ((dir == NULL) || (dir->dirname == NULL))
+@@ -485,7 +493,6 @@ int __po_hi_storage_directory_list (__po_hi_storage_dir_t* dir)
+ 
+ 
+ #if defined (POSIX) || defined (RTEMS_POSIX) || defined (XENO_POSIX)
+-   sdir = NULL;
+    sdir = opendir (dir->dirname);
+ 
+    if (sdir == NULL)
+@@ -498,8 +505,8 @@ int __po_hi_storage_directory_list (__po_hi_storage_dir_t* dir)
+ 
+    while ( ( ( ent = readdir (sdir) ) != NULL ) && (dir->nb_files < __PO_HI_STORAGE_DIRECTORY_MAXFILES) )
+    {
+-      n = dir->nb_files;
+-      len = strlen (ent->d_name);
++      int n = dir->nb_files;
++      int len = strlen (ent->d_name);
+       if (len < __PO_HI_STORAGE_FILENAME_MAXLENGTH)
+       {
+          n = dir->nb_files;
+@@ -524,16 +531,21 @@ int __po_hi_storage_directory_list (__po_hi_storage_dir_t* dir)
+ 
+    return __PO_HI_NOTIMPLEMENTED;
+ }
+-
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wunused-parameter"
+ int __po_hi_storage_directory_lock (const __po_hi_storage_dir_t* dir)
+ {
+    return __PO_HI_NOTIMPLEMENTED;
+ }
++#pragma GCC diagnostic pop
+ 
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wunused-parameter"
+ int __po_hi_storage_directory_unlock (const __po_hi_storage_dir_t* dir)
+ {
+    return __PO_HI_NOTIMPLEMENTED;
+ }
++#pragma GCC diagnostic pop
+ 
+ int __po_hi_storage_change_cdir (__po_hi_storage_dir_t* new_current_directory)
+ {
+@@ -587,16 +599,21 @@ int __po_hi_storage_packet_store_new (__po_hi_storage_packet_store_t* store)
+    store->write_off  = 0;
+    return __PO_HI_SUCCESS;
+ }
+-
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wunused-parameter"
+ int __po_hi_storage_packet_store_new_from_file (__po_hi_storage_packet_store_t* store, __po_hi_storage_file_t* file)
+ {
+    return __PO_HI_NOTIMPLEMENTED;
+ }
++#pragma GCC diagnostic pop
+ 
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wunused-parameter"
+ int __po_hi_storage_packet_store_write_to_file (__po_hi_storage_packet_store_t* store, __po_hi_storage_file_t* file)
+ {
+    return __PO_HI_NOTIMPLEMENTED;
+ }
++#pragma GCC diagnostic pop
+ 
+ int __po_hi_storage_packet_store_read (__po_hi_storage_packet_store_t* store, __po_hi_storage_packet_t* packet)
+ {
+diff --git a/src/po_hi_task.c b/src/po_hi_task.c
+index 2cc2d9d..0353be6 100644
+--- a/src/po_hi_task.c
++++ b/src/po_hi_task.c
+@@ -125,7 +125,7 @@ __po_hi_task_id __po_hi_get_task_id (void) {
+     }
+   }
+ #endif
+-
++  
+   return (__PO_HI_ERROR_UNKNOWN);
+ 
+ }
+@@ -205,6 +205,8 @@ int __po_hi_compute_next_period (__po_hi_task_id task)
+       __po_hi_add_times(&(tasks[task].timer), &mytime, &tasks[task].period );
+       break;
+    }
++  case TASK_BACKGROUND:
++    break;
+   }
+ 
+   return (__PO_HI_SUCCESS);
+@@ -354,7 +356,7 @@ pthread_t __po_hi_posix_create_thread (__po_hi_priority_t priority,
+   pthread_attr_t     attr;
+   struct sched_param param;
+   int err;
+-
++  
+   /* Create attributes to store all configuration parameters */
+ 
+   if (pthread_attr_init (&attr) != 0)
+@@ -549,7 +551,7 @@ int __po_hi_create_generic_task (const __po_hi_task_id      id,
+                                  void*                      (*start_routine)(void),
+                                  void*                      arg)
+ {
+-  __po_hi_task_t* my_task;
++
+   if (id == -1)
+     {
+ #if defined (POSIX) || defined (RTEMS_POSIX) || defined (XENO_POSIX)
+@@ -577,6 +579,7 @@ int __po_hi_create_generic_task (const __po_hi_task_id      id,
+     }
+   else
+     {
++      __po_hi_task_t* my_task;
+       my_task         = &(tasks[id]);
+       __po_hi_time_copy (&(my_task->period), period);
+       my_task->id     = id;
+@@ -789,7 +792,7 @@ void __po_hi_tasks_killall ()
+       rtems_task_delete (tasks[i].rtems_id);
+ #elif defined (POSIX) || defined (RTEMS_POSIX) || defined (XENO_POSIX)
+       pthread_cancel (tasks[i].tid);
+-      __DEBUGMSG ("[TASKS] Cancel thread %p\n", tasks[i].tid);
++      __DEBUGMSG ("[TASKS] Cancel thread %lu\n", tasks[i].tid);
+ #endif
+     }
+ }
+diff --git a/src/po_hi_transport.c b/src/po_hi_transport.c
+index f95264b..c69933c 100644
+--- a/src/po_hi_transport.c
++++ b/src/po_hi_transport.c
+@@ -9,6 +9,7 @@
+  */
+ 
+ #include<stddef.h>
++#include<assert.h>
+ 
+ #include <po_hi_config.h>
+ #include <po_hi_types.h>
+@@ -84,7 +85,7 @@ int __po_hi_transport_send (__po_hi_task_id id, __po_hi_port_t port)
+    }
+ 
+    ndest          = __po_hi_gqueue_get_destinations_number (id, local_port);
+-
++   assert(ndest);
+    __PO_HI_DEBUG_DEBUG ("Send value, emitter task %d, emitter port %d, emitter entity %d, destination ports :\n", id,  port, __po_hi_port_global_to_entity[port]);
+ 
+ #if __PO_HI_DEBUG_LEVEL >= __PO_HI_DEBUG_LEVEL_INFO
+@@ -109,6 +110,7 @@ int __po_hi_transport_send (__po_hi_task_id id, __po_hi_port_t port)
+    {
+       destination_port     = __po_hi_gqueue_get_destination (id, local_port, i);
+       destination_entity   = __po_hi_get_entity_from_global_port (destination_port);
++      assert(destination_entity != -1);
+       __PO_HI_DEBUG_DEBUG ("\t%d (entity=%d)", destination_port, destination_entity);
+       __po_hi_msg_reallocate (&msg);
+ 
+@@ -244,6 +246,8 @@ int __po_hi_transport_set_sending_func (const __po_hi_device_id device, const __
+    }
+ 
+    __po_hi_transport_devices_sending_funcs[device] = func;
++
++   return 0;
+ }
+ 
+ 
+@@ -377,6 +381,7 @@ __po_hi_node_t    __po_hi_transport_get_node_from_device (const __po_hi_device_i
+ #else
+ int __po_hi_transport_call_sending_func_by_port (__po_hi_task_id task_id, __po_hi_port_t port)
+ {
++   __DEBUGMSG ("[TRANSPORT] task id %d port %d, nb protocols is less than or equal to zero\n", task_id,port);
+    return __PO_HI_UNAVAILABLE;
+ }
+ #endif /* __PO_HI_NB_DEVICES > 0 */
+@@ -445,23 +450,29 @@ __po_hi_port_kind_t __po_hi_transport_get_port_kind (const __po_hi_port_t portno
+ 
+ __po_hi_protocol_t __po_hi_transport_get_protocol (const __po_hi_port_t src, const __po_hi_port_t dst)
+ {
++__po_hi_protocol_t protocol;
++
+ #if __PO_HI_NB_PROTOCOLS > 0
+-   return (__po_hi_ports_protocols[src][dst]);
++   protocol= (__po_hi_ports_protocols[src][dst]);
+ #else
+-   return invalid_protocol;
++   __DEBUGMSG ("[TRANSPORT] port SRC=%d DST=%d, nb protocols is less than or equal to zero\n", src,dst);
++   protocol= invalid_protocol;
+ #endif
+-
++return protocol;
+ }
+ 
+ __po_hi_protocol_conf_t*    __po_hi_transport_get_protocol_configuration (const __po_hi_protocol_t p)
+ {
++
+ #if __PO_HI_NB_PROTOCOLS > 0
+    if (p == invalid_protocol)
+    {
+-      return NULL;
++	return NULL;
+    }
+-   return &(__po_hi_protocols_configuration[p]);
++   else
++	return &(__po_hi_protocols_configuration[p]);
+ #else
++   __DEBUGMSG ("[TRANSPORT] protocol %d, nb protocols is less than or equal to zero\n", p);
+    return NULL;
+ #endif
+ }
+diff --git a/src/simulator/um_threads.c b/src/simulator/um_threads.c
+index f0835d8..d6194f4 100644
+--- a/src/simulator/um_threads.c
++++ b/src/simulator/um_threads.c
+@@ -6,6 +6,7 @@
+ 
+ #include<ucontext.h>
+ #include<stdio.h>
++#include<assert.h>
+ 
+ #include <po_hi_debug.h>
+ #include <activity.h>
+@@ -108,8 +109,8 @@ void start_scheduler (void) {
+ 
+ void scheduler(void)
+ {
+-  um_thread_id previous = sched_current_context_id;
+-
++  //um_thread_id previous = sched_current_context_id;
++  //assert(previous);
+   threads[sched_current_context_id].state = READY;
+   sched_current_context_id = the_scheduler ();
+ 
