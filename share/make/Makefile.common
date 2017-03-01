@@ -43,7 +43,7 @@ endif
 
 CFLAGS=$(TARGET_CFLAGS) $(USER_CFLAGS)$(GCC_GENERIC_CFLAGS)
 CPPFLAGS=$(CFLAGS) $(USER_CPPFLAGS)
-LDFLAGS=$(TARGET_LDFLAGS) $(USER_LDFLAGS) -lgcov --coverage
+LDFLAGS=$(TARGET_LDFLAGS) $(USER_LDFLAGS) -lgcov
 
 ifdef USE_GPROF
 CFLAGS+=-D__PO_HI_USE_GPROF -pg
@@ -372,7 +372,7 @@ endif
 	$(CC) $(INCLUDE) $(CFLAGS) -c -o $@ $<
 
 clean: #target-clean
-	@-rm -f *~ *.o *.al temp.* *.metrix $(BINARY) $(BINARY).bin $(BINARY).bt $(BINARY).num $(BINARY).nxe b~*.* *.ali *.gcda *.gcno
+	@-rm -f *~ *.o *.al temp.* *.metrix $(BINARY) $(BINARY).bin $(BINARY).bt $(BINARY).num $(BINARY).nxe b~*.* *.ali *.gcda *.gcno *.log *.xml
 	@-rm -rf drivers
 	if test ! "$(CLEANDIRS)" = "";  then \
 	  rm -rf $(CLEANDIRS); \
@@ -405,24 +405,27 @@ copy_pohic:
 sonar_run: clean
 	   make all > build.log
 	   make cppcheck
-	   make valgrind_xml
+	   make --ignore-errors valgrind_xml
 	   make sonarproperties
+	   make coverage
+	   sonar-scanner
 
 cppcheck:
 	cppcheck -v --enable=all --xml-version=2 --std=c99 --platform=unix64 --rule-file=gnu.cfg --rule-file=std.cfg --rule-file=posix.cfg $(INCLUDE) -I$(LOCAL_RUNTIME_PATH)/include  $(TARGET_CFLAGS) $(USER_CFLAGS) $(LOCAL_RUNTIME_PATH)/src $(PWD) 2> cppcheck.xml
 
-export SONAR_PROJECT_DIR=$(PWD)/..
+#export SONAR_PROJECT_DIR=$(PWD)/.. 
+export SONAR_PROJECT_DIR=$(shell echo "$(USER_SOURCES_DIRS)" | sed  's:-I/:/:g')
 export SONAR_RESULTS_RELATIVE_PATH=$(shell echo "$(PWD)" | sed  's:$(SONAR_PROJECT_DIR)/::g')
 
 sonarproperties:
-	cp ~/polyorb-hi-c/template_sonar-project.properties tmpsonar-project.properties
+	cp ~/hu_openaadl/polyorb-hi-c/template_sonar-project.properties tmpsonar-project.properties
 	sed -i 's/@PROJECT_KEY@/$(MAINAPP):$(BINARY)/g' tmpsonar-project.properties
 	sed -i 's/@PROJECT_NAME@/$(MAINAPP)::$(BINARY)/g' tmpsonar-project.properties
 	sed -i 's:@MASTER_PROJECT_DIR@:$(SONAR_PROJECT_DIR):g' tmpsonar-project.properties
 	
 	echo "#sources files for analysis" >> tmpsonar-project.properties
 	echo "sonar.sources = $(PWD), $(LOCAL_RUNTIME_PATH)/src" >> tmpsonar-project.properties
-	
+
 	echo "#Include files" >> tmpsonar-project.properties
 	echo "sonar.cxx.includeDirectories=$(LOCAL_RUNTIME_PATH)/include, $(LOCAL_RUNTIME_PATH)/include/silulator, $(LOCAL_RUNTIME_PATH)/include/monitoring, $(LOCAL_RUNTIME_PATH)/include/drivers, $(LOCAL_RUNTIME_PATH)/include/drivers/configuration, $(PWD)" >> tmpsonar-project.properties
 	
@@ -437,7 +440,7 @@ sonarproperties:
 	cp tmpsonar-project.properties sonar-project.properties
 
 valgrind:
-	cp ~/polyorb-hi-c/template_prof_gen.sh prof_gen.sh
+	cp ~/hu_openaadl/polyorb-hi-c/template_prof_gen.sh prof_gen.sh
 	sed -i 's/@PROGRAM_NAME@/$(BINARY)/g' prof_gen.sh
 	sh prof_gen.sh --output-dir-name=valgrind_output --check=call
 	sh prof_gen.sh --output-dir-name=valgrind_output --check=cache
@@ -451,10 +454,12 @@ valgrind_log:
 	valgrind --tool=memcheck --leak-check=full --log-file=valgrind_memcheck.log ./$(BINARY)
 
 coverage:
-	cp ~/polyorb-hi-c/template_lcov_gen.sh lcov_gen.sh
+	cp ~/hu_openaadl/polyorb-hi-c/template_lcov_gen.sh lcov_gen.sh
 	sh lcov_gen.sh --output-dir-name=govcoverage_output
-	gcovr -r $(SONAR_PROJECT_DIR) -s -x -o gcovr_report.xml 
+	gcovr -r $(SONAR_PROJECT_DIR) -s -x -o gcovr_report.xml	
 
+
+#	gcovr -r $(PWD)/.. -s -x -o gcovr_report.xml 
 #	cp ~/polyorb-hi-c/template_gnatcov_gen.sh gnatcov_gen.sh
 #	sed -i 's/@PROGRAM_NAME@/$(BINARY)/g' gnatcov_gen.sh
 #	sh gnatcov_gen.sh --output-dir-name=gnatcoverage_output
